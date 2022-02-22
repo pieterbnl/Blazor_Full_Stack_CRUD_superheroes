@@ -41,5 +41,22 @@ namespace BlazorFullStackCrud.Server.Controllers
                 Comic = comics[1]
             }
         };
+
+        [HttpGet]
+        public async Task<ActionResult<List<SuperHero>>> GetSuperHeroes()
+        {
+            return Ok(heroes);
+        }
+
+        [HttpGet("{id}")]        
+        public async Task<ActionResult<List<SuperHero>>> GetSingleHero(int id)
+        {
+            var hero = heroes.FirstOrDefault(hero => hero.Id == id);
+            if(hero == null)
+            {
+                return NotFound("The requested hero has not been found..");
+            }
+            return Ok(hero);
+        }
     }
 }
